@@ -26,6 +26,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Device gem for authentication
 gem 'devise'
 
+#Datepicker gem for date picker calender
+gem 'jquery-datetimepicker-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

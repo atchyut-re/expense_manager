@@ -1,0 +1,50 @@
+<%= form_for(@expense, html: { multipart: true , class: "form-horizontal"}) do |f| %>
+  <% if @expense.errors.any? %>
+    <div id="error_explanation" class = "alert alert-warning">
+      <h3 class = "alert alert-warning"><%= pluralize(@expense.errors.count, "error") %> present in the form: </h3>
+
+      <ul>
+      <% @expense.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<hr>
+    <div class="form-group">
+    <%= f.label :amount, "Amount:" %><br>
+    <div class="col-md-7">
+    <%= f.number_field :amount, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class ="form-group">
+    <%= f.label :date,"Date:" %><br>
+    <div class="col-md-2">
+    <%= f.text_field :date, :placeholder => 'Select Date and Time', class: "datetimepicker form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :category, "Category:" %><br>
+    <div class="col-md-7">
+    <%= f.text_field :category, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, "Description:" %><br>
+    <div class="col-md-7">
+    <%= f.text_area :description, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :Submit, class: 'btn btn-success', data: { disable_with: "Please wait..." } %>
+  </div>
+<% end %>
+
+
+<script>
+  jQuery('.datetimepicker').datetimepicker();
+</script>

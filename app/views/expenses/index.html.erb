@@ -1,0 +1,37 @@
+<h1>Expenses</h1>
+<div class="well">
+<%= link_to "+ New Expense", new_expense_path, class: "btn btn-success" %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @expenses.count == 0 %>
+      <tr>
+        <td colspan="5">
+          No expenses found.  Click the button above to add a new one.
+        </td>
+      </tr>
+    <% else %>
+      <% @expenses.each do |expense| %>
+        <tr>
+          <td><%= link_to expense.date, expense %></td>
+          <td><%= link_to expense.category, expense %></td>
+          <td><%= link_to expense.description, expense %></td>
+          <td><%= link_to expense.amount, expense %></td>
+          <td><%= link_to "Edit", edit_expense_path(expense), class: "btn btn-primary" %>
+              <%= link_to "Delete", expense, method: :delete,
+                    data: { confirm: "You sure?" }, class: 'btn btn-small btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
