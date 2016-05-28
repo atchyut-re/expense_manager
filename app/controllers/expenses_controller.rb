@@ -1,4 +1,5 @@
 class ExpensesController < ApplicationController
+	include ExpensesHelper
 
 	def new
 		@expense = Expense.new
@@ -21,7 +22,7 @@ class ExpensesController < ApplicationController
 	def update
 		if @expense.update_attributes(expense_params)
 			redirect_to expenses_path
-			flas[:success] = "Expense has been updated"
+			flash[:success] = "Expense has been updated"
 		else
 			render 'edit'
 		end
@@ -29,7 +30,7 @@ class ExpensesController < ApplicationController
 
 	def index
 		@expenses = Expense.all
-	end
+    end
 
 	def destroy
 		@expense = Expense.find(params[:id])
@@ -40,6 +41,49 @@ class ExpensesController < ApplicationController
 			redirect_to expenses_path
 		end
 	end
+
+	def reports
+	      from_date, to_date = current_month
+	      @current_month_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+
+	      from_date, to_date = last_month
+	      @last_month_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+	       
+	      from_date, to_date = last_three_months
+	      @last_three_months_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+
+	      from_date, to_date = last_six_months
+	      @last_six_months_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+
+	      from_date, to_date = last_year
+	      @last_year_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+           
+        if params[:date_from].present? && params[:date_to].present?
+	        date_from = Date.parse(params[:date_from])
+	        date_to   = Date.parse(params[:date_to])
+	        @range_expenses  = Expense.where('date BETWEEN ? AND ?', date_from.beginning_of_day, date_to.end_of_day)
+        end      
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p @current_month_expenses
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+        p "==========================================================="
+       respond_to do |format|
+        format.html
+         format.pdf do
+          render pdf: "file_name"   # Excluding ".pdf" extension.
+        end
+      end
+	      
+    end
 
 	private
 

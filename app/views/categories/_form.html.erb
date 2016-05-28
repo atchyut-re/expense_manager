@@ -1,0 +1,24 @@
+<%= form_for(@category, html: { multipart: true , class: "form-horizontal"}) do |f| %>
+  <% if @category.errors.any? %>
+    <div id="error_explanation" class = "alert alert-warning">
+      <h3 class = "alert alert-warning"><%= pluralize(@category.errors.count, "error") %> present in the form: </h3>
+
+      <ul>
+      <% @category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<hr>
+  <div class="form-group">
+    <%= f.label :name, "Name:" %><br>
+    <div class="col-md-7">
+    <%= f.text_field :name, class: "form-control"  %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :Submit, class: 'btn btn-success', data: { disable_with: "Please wait..." } %>
+  </div>
+<% end %>

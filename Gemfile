@@ -29,6 +29,9 @@ gem 'devise'
 #Datepicker gem for date picker calender
 gem 'jquery-datetimepicker-rails'
 
+#chartkick for reports in chart form
+gem 'chartkick'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

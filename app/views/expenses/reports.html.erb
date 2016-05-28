@@ -1,0 +1,56 @@
+<div class= "no-print">
+<div class= "pull-right">
+<%= link_to "Print", '#', class: "btn btn-primary",
+              onclick: 'window.print();return false;' %><br><br>
+</div>
+
+<%= form_tag reports_path, method: :get do %>
+  <%= text_field_tag 'date_from', '', class: 'datetimepicker', :id => "date_from", placeholder: "From" %>
+  <%= text_field_tag 'date_to', '', class: 'datetimepicker', :id => "date_to", placeholder: "To" %>
+  <%= submit_tag 'Search', class: 'button search-button' %>
+<% end %>
+</div>
+
+
+<div class= "container">
+<div class="col-xs-6">
+    <h3>Current Month Expenditure</h3>
+    <%= bar_chart @current_month_expenses.group(:date).sum(:amount) %>
+</div>
+
+<div class="col-xs-6">
+    <h3>Last Month Expenditure</h3>
+    <%= bar_chart @last_month_expenses.group(:date).sum(:amount) %>
+</div>
+
+<div class="col-xs-6">
+    <h3>Last 3 Months Expenditure</h3>
+    <%= bar_chart @last_three_months_expenses.group(:date).sum(:amount) %>
+</div>
+
+<div class="col-xs-6">
+    <h3>Last 6 Months Expenditure</h3>
+    <%= bar_chart @last_six_months_expenses.group(:date).sum(:amount) %>
+</div>
+
+ <div class="col-xs-6">
+    <h3>Last Year Expenditure</h3>
+    <%= bar_chart @last_year_expenses.group(:date).sum(:amount) %>
+ </div>
+
+<% if @range_expenses.present?  %>
+  <div class="col-xs-6">
+    <h3>Selected Date Range Expenditure</h3>
+    <%= bar_chart @range_expenses.group(:date).sum(:amount) %>
+  </div>
+
+<% end %>
+</div>
+
+<script>
+  jQuery('.datetimepicker').datetimepicker({timepicker:false});
+  jQuery('#date_from').on('change', function(){
+  var date = $(this).val().split(' ');
+  jQuery('#date_to').datetimepicker({minDate: date[0]});  
+  });
+</script>  

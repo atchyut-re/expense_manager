@@ -1,0 +1,31 @@
+<h1>Categories</h1>
+<div class="well">
+<%= link_to "+ New Category", new_category_path, class: "btn btn-success" %>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @categories.count == 0 %>
+      <tr>
+        <td colspan="2">
+          No expenses found.  Click the button above to add a new one.
+        </td>
+      </tr>
+    <% else %>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td><%= link_to "Edit", edit_category_path(category), class: "btn btn-primary" %>
+              <%= link_to "Delete", category, method: :delete,
+                    data: { confirm: "You sure?" }, class: 'btn btn-small btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
