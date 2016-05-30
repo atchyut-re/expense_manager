@@ -1,7 +1,13 @@
 <h1>Expenses</h1>
 <div class="well">
-<%= link_to "+ New Expense", new_expense_path, class: "btn btn-success" %>
-<%= link_to "Download Excel", expenses_path(format: "xls"), class: "btn btn-info" %>
+  <%= link_to "+ New Expense", new_expense_path, class: "btn btn-success" %>
+  <%= link_to "Download Excel", expenses_path(format: "xls"), class: "btn btn-info" %>
+  <div align = "right">
+  <%= link_to "By date", expenses_path(:type => 'date'), class: "btn btn-warning" %>
+  <%= link_to "By week", expenses_path(:type => 'week'), class: "btn btn-primary" %>
+  <%= link_to "By month", expenses_path(:type => 'month'), class: "btn btn-warning" %>
+  <%= link_to "By year", expenses_path(:type => 'year'), class: "btn btn-primary" %>
+  </div>
 </div>
 <table class="table table-bordered table-striped">
   <thead>
@@ -21,7 +27,7 @@
         </td>
       </tr>
     <% else %>
-      <% @expenses.each do |expense| %>
+      <% sort_by_month(@expenses).each do |expense| %>
         <tr>
           <td><%= expense.date %></td>
           <td><%= expense.category.name%></td>

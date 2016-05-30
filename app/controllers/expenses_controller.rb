@@ -1,5 +1,7 @@
 class ExpensesController < ApplicationController
 	include ExpensesHelper
+	before_action :authenticate_user!
+	
 
 	def new
 		@expense = Expense.new
@@ -30,7 +32,20 @@ class ExpensesController < ApplicationController
 	end
 
 	def index
-		@expenses = current_user.expenses
+		sort = params[:type]
+		
+    	if sort == 'date'
+    		@expenses = current_user.expenses.where("date >= ?", Time.zone.now.beginning_of_day)
+    	elsif sort == 'week'
+    		@expenses = current_user.expenses.where("date >= ?", Time.zone.now.beginning_of_week)  		
+    	elsif sort == 'month'
+    		@expenses = current_user.expenses.where("date >= ?", Time.zone.now.beginning_of_month)
+    	elsif sort == 'year'
+    		@expenses = current_user.expenses.where("date >= ?", Time.zone.now.beginning_of_year)
+    	else
+    		@expenses = current_user.expenses
+    	end
+    	Rails.logger.debug "\nGETTING PARAMATERS----#{sort}\n"
 		respond_to do |format|
 	      format.html
 	      format.xls
@@ -48,27 +63,35 @@ class ExpensesController < ApplicationController
 	end
 
 	def reports
+
+		 from_date, to_date = current_week
+	     @current_week_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+
 	      from_date, to_date = current_month
 	      @current_month_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
 
-	      from_date, to_date = last_month
-	      @last_month_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
-	       
-	      from_date, to_date = last_three_months
-	      @last_three_months_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
+	      from_date, to_date = current_month
+	      @current_year_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
 
-	      from_date, to_date = last_six_months
-	      @last_six_months_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
-
-	      from_date, to_date = last_year
-	      @last_year_expenses = Expense.where('date BETWEEN ? AND ?', from_date, to_date)
-           
         if params[:date_from].present? && params[:date_to].present?
 	        date_from = Date.parse(params[:date_from])
 	        date_to   = Date.parse(params[:date_to])
 	        @range_expenses  = Expense.where('date BETWEEN ? AND ?', date_from.beginning_of_day, date_to.end_of_day)
         end      	      
     end
+
+
+    def expense_sort
+    	sort = params[:type]
+    	if sort == 'date'
+    		@expenses = current_user.expenses.where(:created_at => Date.today)
+    	elsif sort == 'month'
+    	elsif sort == 'year'
+    	end
+    	Rails.logger.debug "\nGETTING PARAMATERS----#{sort}\n"
+    end
+
+
 
 	private
 

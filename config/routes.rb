@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   root :to => 'static_pages#home'
 
   get 'static_pages/about'
   get 'reports' => 'expenses#reports'
 
   resources :expenses
+  
   resources :categories
 
   # The priority is based upon order of creation: first created -> highest priority.
