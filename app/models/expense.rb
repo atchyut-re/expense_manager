@@ -1,4 +1,4 @@
 class Expense < ActiveRecord::Base
-	belongs_to :categories
-	belongs_to :users
+	belongs_to :category
+	belongs_to :user
 end

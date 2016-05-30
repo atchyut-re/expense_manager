@@ -20,6 +20,7 @@ class ExpensesController < ApplicationController
 	end
 
 	def update
+		@expense = Expense.find(params[:id])
 		if @expense.update_attributes(expense_params)
 			redirect_to expenses_path
 			flash[:success] = "Expense has been updated"
@@ -29,7 +30,11 @@ class ExpensesController < ApplicationController
 	end
 
 	def index
-		@expenses = Expense.all
+		@expenses = current_user.expenses
+		respond_to do |format|
+	      format.html
+	      format.xls
+	  end
     end
 
 	def destroy
@@ -62,32 +67,12 @@ class ExpensesController < ApplicationController
 	        date_from = Date.parse(params[:date_from])
 	        date_to   = Date.parse(params[:date_to])
 	        @range_expenses  = Expense.where('date BETWEEN ? AND ?', date_from.beginning_of_day, date_to.end_of_day)
-        end      
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p @current_month_expenses
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-        p "==========================================================="
-       respond_to do |format|
-        format.html
-         format.pdf do
-          render pdf: "file_name"   # Excluding ".pdf" extension.
-        end
-      end
-	      
+        end      	      
     end
 
 	private
 
 	def expense_params
-		params.require(:expense).permit(:amount, :date, :category, :description)
+		params.require(:expense).permit(:amount, :date, :category_id, :description)
 	end
 end

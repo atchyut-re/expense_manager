@@ -15,33 +15,33 @@
 <div class= "container">
 <div class="col-xs-6">
     <h3>Current Month Expenditure</h3>
-    <%= bar_chart @current_month_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @current_month_expenses.group(:date).sum(:amount) %>
 </div>
 
 <div class="col-xs-6">
     <h3>Last Month Expenditure</h3>
-    <%= bar_chart @last_month_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @last_month_expenses.group(:date).sum(:amount) %>
 </div>
 
 <div class="col-xs-6">
     <h3>Last 3 Months Expenditure</h3>
-    <%= bar_chart @last_three_months_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @last_three_months_expenses.group(:date).sum(:amount) %>
 </div>
 
 <div class="col-xs-6">
     <h3>Last 6 Months Expenditure</h3>
-    <%= bar_chart @last_six_months_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @last_six_months_expenses.group(:date).sum(:amount) %>
 </div>
 
  <div class="col-xs-6">
     <h3>Last Year Expenditure</h3>
-    <%= bar_chart @last_year_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @last_year_expenses.group(:date).sum(:amount) %>
  </div>
 
 <% if @range_expenses.present?  %>
   <div class="col-xs-6">
     <h3>Selected Date Range Expenditure</h3>
-    <%= bar_chart @range_expenses.group(:date).sum(:amount) %>
+    <%= pie_chart @range_expenses.group(:date).sum(:amount) %>
   </div>
 
 <% end %>
