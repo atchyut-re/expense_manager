@@ -29,7 +29,7 @@
   <%= f.label :category, "Category:" %><br>
     <div class="col-md-2">
 
-    <%= f.collection_select(:category_id, Category.all, :id, :name, {}, { :class => "select_box selectpicker picker"}) %>
+    <%= f.collection_select(:category_id, current_user.categories, :id, :name, {}, { :class => "select_box selectpicker picker"}) %>
     </div>
   </div>
 
