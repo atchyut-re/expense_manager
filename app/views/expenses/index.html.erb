@@ -10,6 +10,9 @@
   <%= link_to "By year", expenses_path(:type => 'year'), class: "btn btn-primary" %>
   </div>
 </div>
+
+<%= paginate @expenses %> </br>
+<%= page_entries_info @expenses %>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
@@ -43,3 +46,4 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate @expenses%> </br>

@@ -45,7 +45,9 @@ class ExpensesController < ApplicationController
     	else
     		@expenses = current_user.expenses
     	end
-    	Rails.logger.debug "\nGETTING PARAMATERS----#{sort}\n"
+
+		@expenses = Kaminari.paginate_array(@expenses).page(params[:page]).per(10)
+		
 		respond_to do |format|
 	      format.html
 	      format.xls

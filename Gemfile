@@ -35,6 +35,9 @@ gem 'jquery-datetimepicker-rails'
 #chartkick for reports in chart form
 gem 'chartkick'
 
+#Kaminari for pagination
+gem 'kaminari', '~> 0.16.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
