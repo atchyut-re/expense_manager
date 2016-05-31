@@ -30,6 +30,9 @@ class CategoriesController < ApplicationController
 	end
 
 	def destroy
+		if @category.destroy
+		redirect_to categories_path
+		end
 	end
 
 	def index

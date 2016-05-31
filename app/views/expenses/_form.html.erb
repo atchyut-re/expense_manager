@@ -27,9 +27,10 @@
 
  <div class="form-group">
   <%= f.label :category, "Category:" %><br>
-    <div class="col-md-2">
+    <div class="col-md-4">
 
     <%= f.collection_select(:category_id, current_user.categories, :id, :name, {}, { :class => "select_box selectpicker picker"}) %>
+      <%= link_to "+ Add Category", new_category_path %>
     </div>
   </div>
 

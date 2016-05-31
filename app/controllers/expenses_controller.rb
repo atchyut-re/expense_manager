@@ -13,7 +13,7 @@ class ExpensesController < ApplicationController
 			redirect_to expenses_path
 			flash[:success] = "New expence has been created"
 		else
-			render Expense.new
+			redirect_to new_expense_path
 		end
 	end
 
