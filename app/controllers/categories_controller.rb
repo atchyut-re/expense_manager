@@ -37,6 +37,7 @@ class CategoriesController < ApplicationController
 
 	def index
 		@categories = current_user.categories
+		@categories =  Kaminari.paginate_array(@categories).page(params[:page]).per(5)
 	end
 
 	def show
