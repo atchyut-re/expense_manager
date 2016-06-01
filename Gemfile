@@ -38,7 +38,8 @@ gem 'chartkick'
 #Kaminari for pagination
 gem 'kaminari'
 
-
+#RanSack gem for search option
+gem 'ransack'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

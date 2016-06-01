@@ -3,17 +3,23 @@
   <%= link_to "+ New Expense", new_expense_path, class: "btn btn-success" %>
   <%= link_to "Download Excel", expenses_path(format: "xls"), class: "btn btn-info" %>
   <div align = "right">
+  <%= render 'expense_search' %></br>
   <%= link_to "All expenses", expenses_path, class: "btn btn-primary" %>
-  <%= link_to "By date", expenses_path(:type => 'date'), class: "btn btn-warning" %>
-  <%= link_to "By week", expenses_path(:type => 'week'), class: "btn btn-primary" %>
-  <%= link_to "By month", expenses_path(:type => 'month'), class: "btn btn-warning" %>
-  <%= link_to "By year", expenses_path(:type => 'year'), class: "btn btn-primary" %>
+  <%= link_to "This date", expenses_path(:type => 'date'), class: "btn btn-warning" %>
+  <%= link_to "This week", expenses_path(:type => 'week'), class: "btn btn-primary" %>
+  <%= link_to "This month", expenses_path(:type => 'month'), class: "btn btn-warning" %>
+  <%= link_to "This year", expenses_path(:type => 'year'), class: "btn btn-primary" %>
   </div>
 </div>
 
 <%= paginate @expenses %>
 </br>
 <%= page_entries_info @expenses %>
+  <div align = "right">
+  <%= sort_link @search, :amount, "Amount", class: "btn btn-xs btn-primary" %>
+  <%= sort_link @search, :description, "Description" %>
+  <%= sort_link @search, :date, "Date" %>
+  </div>
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
