@@ -1,8 +1,8 @@
 <h1>Categories</h1>
 <div class="well">
-<%= link_to "+ New Category", new_category_path, class: "btn btn-success" %>
+<%= link_to "+ New Category", new_category_path, class: "btn btn-success",remote: true %>
 </div>
-
+<div id="category_form" style="display:none;"></div>
 <%= paginate @categories %>
 </br>
 <%= page_entries_info @categories %>
@@ -26,7 +26,7 @@
           <td><%= link_to category.name, category %></td>
           <td><%= link_to "Edit", edit_category_path(category), class: "btn btn-primary" %>
               <%= link_to "Delete", category, method: :delete,
-                    data: { confirm: "You sure?" }, class: 'btn btn-small btn-danger' %>
+                    data: { confirm: "You sure?" }, class: 'btn btn-small btn-danger','data-turbolinks-eval' => false %>
           </td>
         </tr>
       <% end %>

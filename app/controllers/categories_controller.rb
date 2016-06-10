@@ -1,7 +1,9 @@
 class CategoriesController < ApplicationController
 
 	before_action :set_category, only: [:show, :edit, :update, :destroy]
+	before_action :all_categories, only: [:create, :index]
 	before_action :authenticate_user!
+	respond_to :html, :js
 	def new
 		@category = Category.new
 	end
@@ -36,8 +38,10 @@ class CategoriesController < ApplicationController
 	end
 
 	def index
-		@categories = current_user.categories
-		@categories =  Kaminari.paginate_array(@categories).page(params[:page]).per(5)
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def show
@@ -53,4 +57,8 @@ class CategoriesController < ApplicationController
 		params.require(:category).permit(:name, :user_id)
 	end
 
+	def all_categories
+		@categories = current_user.categories
+		@categories =  Kaminari.paginate_array(@categories).page(params[:page]).per(5)
+	end
 end
