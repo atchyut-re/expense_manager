@@ -30,6 +30,6 @@ Thankyou [contributers!](https://github.com/atchyut-re/expense_manager/graphs/co
 
 ##Meet the Author
 
-let's make love and not war! I always love talking with people to build big things. catch me @ [My studio](www.atchyutn.com)
+let's make love and not war! I always love talking with people to build big things. catch me @ [My studio](http://www.atchyutn.com)
 
 
